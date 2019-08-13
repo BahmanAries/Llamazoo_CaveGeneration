@@ -281,7 +281,3 @@ D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\Temp\bin\Debug\Uni
 D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\obj\Debug\Assembly-CSharp.dll
 D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\obj\Debug\Assembly-CSharp.pdb
-D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
-D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\Temp\bin\Debug\Boo.Lang.dll
-D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\Temp\bin\Debug\UnityEditor.UI.dll
-D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\Temp\bin\Debug\UnityEditor.UI.xml

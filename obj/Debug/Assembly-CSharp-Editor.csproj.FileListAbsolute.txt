@@ -313,3 +313,4 @@ D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\obj\Debug\Assembly
 D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\obj\Debug\Assembly-CSharp-Editor.csproj.CopyComplete
 D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\obj\Debug\Assembly-CSharp-Editor.dll
 D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\obj\Debug\Assembly-CSharp-Editor.pdb
+D:\Unity\Projects\Llamazoo\Bahman_Aminipour_LlamaZOOUnityTest\Temp\bin\Debug\Assembly-CSharp.pdb

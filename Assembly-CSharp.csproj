@@ -60,9 +60,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CaveMapLibrary\ICoordinate.cs" />
+    <Compile Include="Assets\CaveMapLibrary\MapGeneratorBase.cs" />
     <Compile Include="Assets\CaveMapLibrary\MapTile.cs" />
+    <Compile Include="Assets\CaveMapLibrary\MapTileBase.cs" />
     <Compile Include="Assets\CaveMapLibrary\MapTileGrid.cs" />
+    <Compile Include="Assets\CaveMapLibrary\MapTileGridBase.cs" />
+    <Compile Include="Assets\CaveMapLibrary\NodeBase.cs" />
     <Compile Include="Assets\CaveMapLibrary\Room.cs" />
+    <Compile Include="Assets\CaveMapLibrary\RoomBase.cs" />
     <Compile Include="Assets\CaveMapLibrary\TileControlNode.cs" />
     <Compile Include="Assets\CaveMapLibrary\TileCoordinate.cs" />
     <Compile Include="Assets\CaveMapLibrary\TileNode.cs" />

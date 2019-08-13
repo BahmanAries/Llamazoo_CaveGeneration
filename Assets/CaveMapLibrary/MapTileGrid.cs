@@ -10,12 +10,8 @@ namespace Assets.CaveMapLibrary
     /// <summary>
     /// A 2D matrix of MapTiles that covers the entire area of a cave map
     /// </summary>
-    public class MapTileGrid
+    public class MapTileGrid :MapTileGridBase
     {
-        /// <summary>
-        /// Gets the MapTiles of this grid
-        /// </summary>
-        public MapTile[,] Tiles { get; private set; }
         /// <summary>
         /// Creates A 2D matrix of MapTiles that covers the entire area of the cave map
         /// </summary>

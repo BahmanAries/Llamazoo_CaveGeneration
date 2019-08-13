@@ -12,7 +12,7 @@ public class MeshGenerator
     /// <summary>
     /// A 2D matrix of MapTiles with corresponding TileNodes
     /// </summary>
-    public virtual MapTileGrid TileGrid { get; private set; }
+    public virtual MapTileGridBase TileGrid { get; private set; }
 
     MeshFilter _edgesMesh;
     MeshFilter _wallsMesh;
@@ -180,7 +180,7 @@ public class MeshGenerator
         List<int> grassTriangles = new List<int>();
         List<Vector2> uvs = new List<Vector2>();
         Mesh grassMesh = new Mesh();
-        foreach (var grassTile in TileGrid.Tiles)
+        foreach (MapTile grassTile in TileGrid.Tiles)
         {
             if (grassTile.Type == TileType.Grass)
             {
@@ -227,7 +227,7 @@ public class MeshGenerator
         {
             for (int y = 0; y < TileGrid.Tiles.GetLength(1); y++)
             {
-                TriangulateSquare(TileGrid.Tiles[x, y]);
+                TriangulateSquare(TileGrid.Tiles[x, y] as MapTile);
             }
         }
     }

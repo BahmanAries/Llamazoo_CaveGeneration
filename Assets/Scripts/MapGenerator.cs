@@ -3,19 +3,13 @@ using System;
 using System.Collections.Generic;
 using Assets.CaveMapLibrary;
 
-public class MapGenerator
+public class MapGenerator : MapGeneratorBase
 {
     private const int randomMin = 0;
     private const int randomMax = 100;
     private const int smoothingIterations = 5;
     private const int borderSize = 1;
 
-    /// <summary>
-    /// A 2D grid that shows the coordinate and state of each cell
-    /// </summary>
-    private TileType[,] _map;
-    private int _mapWidth;
-    private int _mapHeight;
     private int _wallDensity;
     private int _grassDensity;
     private CaveMapController _caveMap;
@@ -27,7 +21,7 @@ public class MapGenerator
     /// <param name="height">Map height</param>
     /// <param name="wallDensity">An integer between 0 and 100 determining wall to free-space ratio</param>
     /// <param name="caveMap">Reference to the CaveMap GameObject</param>
-    public virtual void GenerateMap(int width, int height, int wallDensity, CaveMapController caveMap)
+    public override void GenerateMap(int width, int height, int wallDensity, CaveMapController caveMap)
     {
         _caveMap = caveMap;
         _mapWidth = width;
@@ -128,30 +122,30 @@ public class MapGenerator
     /// </summary>
     protected virtual void RemoveIsolations()
     {
-        List<List<TileCoordinate>> wallRegions = GetRegions(TileType.Wall);
+        List<List<ICoordinate>> wallRegions = GetRegions(TileType.Wall);
         int wallThresholdSize = 75;
 
-        foreach (List<TileCoordinate> wallRegion in wallRegions)
+        foreach (List<ICoordinate> wallRegion in wallRegions)
         {
             if (wallRegion.Count < wallThresholdSize)
             {
-                foreach (TileCoordinate tile in wallRegion)
+                foreach (ICoordinate tile in wallRegion)
                 {
                     _map[tile.TileX, tile.TileY] = TileType.Grass;
                 }
             }
         }
 
-        List<List<TileCoordinate>> roomRegions = GetRegions(TileType.Floor);
+        List<List<ICoordinate>> roomRegions = GetRegions(TileType.Floor);
         roomRegions.AddRange(GetRegions(TileType.Grass));
         int roomThresholdSize = 25;
         List<Room> survivingRooms = new List<Room>();
 
-        foreach (List<TileCoordinate> roomRegion in roomRegions)
+        foreach (List<ICoordinate> roomRegion in roomRegions)
         {
             if (roomRegion.Count < roomThresholdSize)
             {
-                foreach (TileCoordinate tile in roomRegion)
+                foreach (ICoordinate tile in roomRegion)
                 {
                     _map[tile.TileX, tile.TileY] = TileType.Wall;
                 }
@@ -305,11 +299,11 @@ public class MapGenerator
     /// <param name="roomB"></param>
     /// <param name="tileA"></param>
     /// <param name="tileB"></param>
-    protected virtual void CreatePassage(Room roomA, Room roomB, TileCoordinate tileA, TileCoordinate tileB)
+    protected virtual void CreatePassage(Room roomA, Room roomB, ICoordinate tileA, ICoordinate tileB)
     {
         Room.ConnectRooms(roomA, roomB);
-        List<TileCoordinate> line = GetLine(tileA, tileB);
-        foreach (TileCoordinate c in line)
+        List<ICoordinate> line = GetLine(tileA, tileB);
+        foreach (ICoordinate c in line)
         {
             DrawCircle(TileType.Floor, c, 5);
             //DrawCircle(TileType.Grass, c, 1);
@@ -320,7 +314,7 @@ public class MapGenerator
     /// </summary>
     /// <param name="c"></param>
     /// <param name="r"></param>
-    void DrawCircle(TileType type, TileCoordinate c, int r)
+    void DrawCircle(TileType type, ICoordinate c, int r)
     {
         for (int x = -r; x <= r; x++)
         {
@@ -344,9 +338,9 @@ public class MapGenerator
     /// <param name="from"></param>
     /// <param name="to"></param>
     /// <returns></returns>
-    protected virtual List<TileCoordinate> GetLine(TileCoordinate from, TileCoordinate to)
+    protected virtual List<ICoordinate> GetLine(ICoordinate from, ICoordinate to)
     {
-        List<TileCoordinate> line = new List<TileCoordinate>();
+        List<ICoordinate> line = new List<ICoordinate>();
 
         int x = from.TileX;
         int y = from.TileY;
@@ -407,7 +401,7 @@ public class MapGenerator
     /// </summary>
     /// <param name="tile"></param>
     /// <returns></returns>
-    Vector3 CoordToWorldPoint(TileCoordinate tile)
+    Vector3 CoordToWorldPoint(ICoordinate tile)
     {
         return new Vector3(-_mapWidth / 2 + .5f + tile.TileX, 2, -_mapHeight / 2 + .5f + tile.TileY);
     }
@@ -416,9 +410,9 @@ public class MapGenerator
     /// </summary>
     /// <param name="tileType"></param>
     /// <returns></returns>
-    protected virtual List<List<TileCoordinate>> GetRegions(TileType tileType)
+    protected virtual List<List<ICoordinate>> GetRegions(TileType tileType)
     {
-        List<List<TileCoordinate>> regions = new List<List<TileCoordinate>>();
+        List<List<ICoordinate>> regions = new List<List<ICoordinate>>();
         int[,] mapFlags = new int[_mapWidth, _mapHeight];
 
         for (int x = 0; x < _mapWidth; x++)
@@ -427,10 +421,10 @@ public class MapGenerator
             {
                 if (mapFlags[x, y] == 0 && _map[x, y] == tileType)
                 {
-                    List<TileCoordinate> newRegion = GetRegionTiles(x, y);
+                    List<ICoordinate> newRegion = GetRegionTiles(x, y);
                     regions.Add(newRegion);
 
-                    foreach (TileCoordinate tile in newRegion)
+                    foreach (ICoordinate tile in newRegion)
                     {
                         mapFlags[tile.TileX, tile.TileY] = 1;
                     }
@@ -446,19 +440,19 @@ public class MapGenerator
     /// <param name="startX">x position to start the search</param>
     /// <param name="startY">y position to start the search</param>
     /// <returns></returns>
-    protected virtual List<TileCoordinate> GetRegionTiles(int startX, int startY)
+    protected virtual List<ICoordinate> GetRegionTiles(int startX, int startY)
     {
-        List<TileCoordinate> tiles = new List<TileCoordinate>();
+        List<ICoordinate> tiles = new List<ICoordinate>();
         int[,] mapFlags = new int[_mapWidth, _mapHeight];
         TileType tileType = _map[startX, startY];
 
-        Queue<TileCoordinate> queue = new Queue<TileCoordinate>();
+        Queue<ICoordinate> queue = new Queue<ICoordinate>();
         queue.Enqueue(new TileCoordinate(startX, startY));
         mapFlags[startX, startY] = 1;
 
         while (queue.Count > 0)
         {
-            TileCoordinate tile = queue.Dequeue();
+            ICoordinate tile = queue.Dequeue();
             tiles.Add(tile);
 
             for (int x = tile.TileX - 1; x <= tile.TileX + 1; x++)

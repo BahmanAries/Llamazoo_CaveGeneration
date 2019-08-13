@@ -9,9 +9,8 @@ namespace Assets.CaveMapLibrary
     /// <summary>
     /// Represents an Isolated space on the map
     /// </summary>
-    public class Room : IComparable<Room>
+    public class Room : RoomBase, IComparable<Room>
     {
-        public List<TileCoordinate> RoomTiles { get; private set; }
         public List<TileCoordinate> EdgeTiles { get; private set; }
         public TileCoordinate CenterTile { get; private set; }
         public List<Room> ConnectedRooms { get; private set; }
@@ -22,7 +21,7 @@ namespace Assets.CaveMapLibrary
         public Room()
         {
         }
-        public Room(List<TileCoordinate> roomTiles, TileType[,] map)
+        public Room(List<ICoordinate> roomTiles, TileType[,] map)
         {
             RoomTiles = roomTiles;
             RoomSize = RoomTiles.Count;
